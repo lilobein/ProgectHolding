@@ -3,6 +3,9 @@ package com.login;
 import com.data.DatabaseConnection;
 import com.data.QueryResultWrapper;
 
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.*;
 import java.sql.SQLException;
 
@@ -13,7 +16,7 @@ public class UserDAO {
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             stmt.setString(1, user.getUsername());
-            stmt.setString(2, user.getPassword());
+            stmt.setString(2, hashPassword(user.getPassword()));
             stmt.setInt(3, user.getEnterpriseId());
             stmt.setInt(4, user.getAccessLevel());
             stmt.executeUpdate();
@@ -23,18 +26,18 @@ public class UserDAO {
                     user.setId(rs.getInt(1));
                 }
             }
-            } catch (SQLException e) {
-            // Логируем ошибку перед передачей её дальше
+        } catch (SQLException e) {
             System.err.println("Ошибка при сохранении пользователя: " + e.getMessage());
             throw e;
         }
     }
 
+
     public static void update(User user) throws SQLException {
         String query = "UPDATE users SET username=?, password=?, access_level=? WHERE id=?";
         try (PreparedStatement stmt = DatabaseConnection.getConnection().prepareStatement(query)) {
             stmt.setString(1, user.getUsername());
-            stmt.setString(2, user.getPassword());
+            stmt.setString(2, hashPassword(user.getPassword()));
             stmt.setInt(3, user.getAccessLevel());
             stmt.setInt(4, user.getId());
             stmt.executeUpdate();
@@ -101,6 +104,22 @@ public class UserDAO {
             throw e;
         }
         return wrapper;
+    }
+
+    protected static String hashPassword(String password) {
+        try {
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            byte[] hashBytes = digest.digest(password.getBytes(StandardCharsets.UTF_8));
+            StringBuilder hexString = new StringBuilder();
+            for (byte b : hashBytes) {
+                String hex = Integer.toHexString(0xff & b);
+                if (hex.length() == 1) hexString.append('0');
+                hexString.append(hex);
+            }
+            return hexString.toString();
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException("SHA-256 algorithm not found", e);
+        }
     }
 
 }

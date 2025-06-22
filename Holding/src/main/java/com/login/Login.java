@@ -1,9 +1,9 @@
 package com.login;
 import com.data.QueryResultWrapper;
-
 import java.sql.SQLException;
 
-public class Login {
+
+public class Login extends UserDAO{
     private final String username;
     private final String password;
     private  User user;
@@ -14,14 +14,20 @@ public class Login {
     }
 
     public boolean validate() throws SQLException {
-        QueryResultWrapper result = UserDAO.findByUsername(username);
+        QueryResultWrapper result = findByUsername(username);
         user = (User) result.unwrap();
 
-        if (user == null || !user.getPassword().equals(password)) {
+        if (user == null) {
+            return false;
+        }
+
+        String hashedInputPassword = hashPassword(password);
+        if (!user.getPassword().equals(hashedInputPassword)) {
             return false;
         }
         return true;
     }
+
 
     public User getUser(){return user;}
     public String getUsername() { return username; }

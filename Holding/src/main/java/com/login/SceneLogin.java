@@ -6,6 +6,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import java.io.IOException;
+import java.sql.SQLException;
 
 public class SceneLogin extends Application {
     private static final int WIDTH = 850;
@@ -13,11 +14,20 @@ public class SceneLogin extends Application {
     private static final String TITLE = "Авторизация";
 
     @Override
-    public void start(Stage stage) throws IOException {
+    public void start(Stage stage) throws IOException, SQLException {
         Parent root = FXMLLoader.load(getClass().getResource("/com/login/login.fxml"));
         stage.setTitle(TITLE);
         stage.setScene(new Scene(root, WIDTH, HEIGHT));
         stage.setResizable(false);
         stage.show();
+
+        try{User newUser = new User("testUser2", "qwerty123", 1, User.MANAGER);
+        UserDAO.saveUser(newUser);
+            newUser.setUsername("ahaha");
+            UserDAO.update(newUser);
+        } catch (Exception e) {
+            System.out.println("говно идея" + e.getMessage());
+        }
+
     }
 }
