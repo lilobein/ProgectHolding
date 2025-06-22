@@ -37,37 +37,37 @@
 
             <TableView fx:id="metricsTable" layoutX="7.0" layoutY="46.0" prefHeight="421.0" prefWidth="836.0" style="-fx-table-cell-border-color: transparent;">
                 <columns>
-                    <TableColumn prefWidth="70.0" style="-fx-background-color: #f5f5f5;" text="ID">
+                    <TableColumn prefWidth="70.0" style="-fx-background-color: #f5f5f5; -fx-alignment: CENTER;" text="ID">
                         <cellValueFactory>
                             <PropertyValueFactory property="id" />
                         </cellValueFactory>
                     </TableColumn>
-                    <TableColumn prefWidth="167.20004272460938" style="-fx-background-color: #f5f5f5;" text="Название">
+                    <TableColumn prefWidth="167.20004272460938" style="-fx-background-color: #f5f5f5; -fx-alignment: CENTER;" text="Название">
                         <cellValueFactory>
                             <PropertyValueFactory property="metric_name" />
                         </cellValueFactory>
                     </TableColumn>
-                    <TableColumn prefWidth="141.59996032714844" style="-fx-background-color: #f5f5f5;" text="Значение">
+                    <TableColumn prefWidth="141.59996032714844" style="-fx-background-color: #f5f5f5; -fx-alignment: CENTER;" text="Значение">
                         <cellValueFactory>
                             <PropertyValueFactory property="value" />
                         </cellValueFactory>
                     </TableColumn>
-                    <TableColumn prefWidth="89.5999755859375" style="-fx-background-color: #f5f5f5;" text="Валюта">
+                    <TableColumn prefWidth="89.5999755859375" style="-fx-background-color: #f5f5f5; -fx-alignment: CENTER;" text="Валюта">
                         <cellValueFactory>
                             <PropertyValueFactory property="currency_id" />
                         </cellValueFactory>
                     </TableColumn>
-                    <TableColumn prefWidth="113.5999755859375" style="-fx-background-color: #f5f5f5;" text="Начало периода">
+                    <TableColumn prefWidth="113.5999755859375" style="-fx-background-color: #f5f5f5; -fx-alignment: CENTER;" text="Начало периода">
                         <cellValueFactory>
                             <PropertyValueFactory property="period_start" />
                         </cellValueFactory>
                     </TableColumn>
-                    <TableColumn prefWidth="133.60003662109375" style="-fx-background-color: #f5f5f5;" text="Конец периода">
+                    <TableColumn prefWidth="133.60003662109375" style="-fx-background-color: #f5f5f5; -fx-alignment: CENTER;" text="Конец периода">
                         <cellValueFactory>
                             <PropertyValueFactory property="period_end" />
                         </cellValueFactory>
                     </TableColumn>
-                    <TableColumn prefWidth="144.0" style="-fx-background-color: #f5f5f5;" text="Предприятие">
+                    <TableColumn prefWidth="144.0" style="-fx-background-color: #f5f5f5; -fx-alignment: CENTER;" text="Предприятие">
                         <cellValueFactory>
                             <PropertyValueFactory property="enterprise_id" />
                         </cellValueFactory>
@@ -81,7 +81,7 @@
                     <Font size="11.0" />
                 </font>
             </Label>
-         <Button fx:id="exitButton" layoutX="761.0" layoutY="539.0" mnemonicParsing="false" text="Выйти" />
+            <Button fx:id="exitButton" layoutX="761.0" layoutY="539.0" mnemonicParsing="false" text="Выйти" />
         </Pane>
     </children>
 </Pane>

@@ -4,7 +4,6 @@ import com.data.DatabaseConnection;
 import com.data.QueryResultWrapper;
 
 import java.sql.*;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,38 +33,6 @@ public class MetricDAO {
         }
     }
 
-    public static QueryResultWrapper findById(int indicatorId) throws SQLException {
-        String query = "SELECT * FROM metrics WHERE id=?";
-        QueryResultWrapper wrapper = QueryResultWrapper.getInstance();
-
-        try (Connection connection = DatabaseConnection.getConnection();
-             PreparedStatement statement = connection.prepareStatement(query)) {
-
-            statement.setInt(1, indicatorId);
-
-            try (ResultSet rs = statement.executeQuery()) {
-                if (rs.next()) {
-                    Metric metric = new Metric(
-                            rs.getString("metric_name"),
-                            rs.getDouble("value"),
-                            rs.getInt("currency_id"),
-                            rs.getByte("importance_constant"),
-                            rs.getDate("period_start").toLocalDate(),
-                            rs.getDate("period_end").toLocalDate(),
-                            rs.getInt("enterprise_id")
-                    );
-                    metric.setId(rs.getInt("id"));
-                    wrapper.wrap(metric);
-                } else {
-                    wrapper.wrap(null);
-                }
-            }
-        } catch (SQLException e) {
-            wrapper.wrap(null);
-            throw e;
-        }
-        return wrapper;
-    }
 
     public static void update(Metric metric) throws SQLException {
         String query = "UPDATE metrics SET metric_name=?, value=?, currency_id=?, " +

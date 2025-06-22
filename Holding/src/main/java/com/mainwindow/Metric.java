@@ -3,14 +3,14 @@ package com.mainwindow;
 import java.time.LocalDate;
 
 public class Metric {
-    private int id;  // int(11)
-    private String metric_name;  // varchar(255)
-    private double value;  // decimal(19,4) - представлено как double для Java
-    private int currency_id;  // int(11)
-    private byte importance_constant;  // tinyint(4)
-    private LocalDate period_start;  // date
-    private LocalDate period_end;  // date
-    private int enterprise_id;  // int(11)
+    private int id;
+    private String metric_name;
+    private double value;
+    private int currency_id;
+    private byte importance_constant;
+    private LocalDate period_start;
+    private LocalDate period_end;
+    private int enterprise_id;
 
     public Metric(String metric_name, double value, int currency_id,
                      byte importance_constant, LocalDate period_start,
@@ -57,7 +57,6 @@ public class Metric {
         return enterprise_id;
     }
 
-    // Сеттеры
     public void setId(int id) {
         this.id = id;
     }

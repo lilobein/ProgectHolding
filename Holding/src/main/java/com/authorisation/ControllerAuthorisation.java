@@ -4,7 +4,6 @@ import com.login.User;
 import com.login.UserDAO;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 
 import java.sql.SQLException;
@@ -47,17 +46,21 @@ public class ControllerAuthorisation {
         try {
             validateInput();
             int accessLevel = accessLevelComboBox.getSelectionModel().getSelectedIndex() + 1;
+
             if (!User.newLogin(usernameField.getText().trim())) {
                 view.showErrorDialog("Ошибка сохранения логина", "Пользователь с таким логином уже существует");
                 return;
             }
+
             user.setUsername(usernameField.getText().trim());
+
             try {
                 user.setEnterpriseId(Integer.parseInt(enterpriseIdField.getText().trim()));
             } catch (Exception e){
                 view.showErrorDialog("Ошибка ID предприятия", "Такого предприятия не существует. Обратитесь к руководству или попробуйте еще раз.");
                 return;
             }
+
             user.setPassword(passwordField.getText().trim());
 
             user.setEnterpriseId(Integer.parseInt(enterpriseIdField.getText().trim()));
@@ -65,7 +68,8 @@ public class ControllerAuthorisation {
             user.setAccessLevel(accessLevel);
             UserDAO.saveUser(user);
 
-            view.showConfirmation("Пользователь зарегистрирован!");
+            view.userCelebration(user);
+
         } catch (NumberFormatException e) {
             view.showErrorDialog("Ошибка ввода", "ID предприятия должно быть числом");
         } catch (SQLException e) {

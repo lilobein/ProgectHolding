@@ -1,6 +1,5 @@
 package com.login;
 
-import com.authorisation.ControllerAuthorisation;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -8,7 +7,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 import java.io.IOException;
-import java.sql.SQLException;
 
 public class SceneLogin extends Application {
     private static final String TITLE = "Авторизация";

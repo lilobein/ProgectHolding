@@ -1,17 +1,12 @@
 package com.authorisation;
 
 import com.login.User;
-import com.mainwindow.ControllerMainManager;
-import com.mainwindow.Metric;
-import com.mainwindow.SceneMainAnalyst;
-import com.mainwindow.SceneMainManager;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.TableView;
 import javafx.stage.Stage;
 
 public class SceneAuthorisation extends Application {
@@ -38,10 +33,16 @@ public class SceneAuthorisation extends Application {
         }
     }
 
-    protected boolean showConfirmation(String message) {
+    protected void showConfirmation(String message) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setContentText(message);
-        return alert.showAndWait().get() == ButtonType.OK;
+        alert.showAndWait().get();
+    }
+
+    protected void userCelebration(User user){
+        this.user = user;
+        showConfirmation("Пользователь " + this.user.getUsername() + " успешно сохранен! Войдите с своими данными");
+
     }
 
     protected void showErrorDialog(String title, String message) {

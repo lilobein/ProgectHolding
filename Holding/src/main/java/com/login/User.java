@@ -74,7 +74,7 @@ public class User {
             return wrapper != null && wrapper.unwrap() == null;
         } catch (SQLException e) {
             e.printStackTrace();
-            return false; // или пробросить исключение
+            return false;
         }
     }
     public void setUsername(String username){
