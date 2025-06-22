@@ -15,7 +15,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="850.0" style="-fx-background-color: #f8f8f8;" xmlns="http://javafx.com/javafx/22.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mainwindow.ControllerMainManager">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="850.0" style="-fx-background-color: #f8f8f8;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mainwindow.ControllerMainManager">
 
     <children>
 
@@ -108,7 +108,7 @@
             </HBox>
 
 
-           <Label alignment="CENTER" layoutX="8.0" layoutY="552.0" prefHeight="30.0" prefWidth="836.0" text="© 2024 HoldingProject. Фефелова Диана Викторовна 241-361" textAlignment="CENTER" textFill="#9e9e9e">
+           <Label alignment="CENTER" layoutX="8.0" layoutY="552.0" prefHeight="30.0" prefWidth="836.0" text="© 2025 HoldingProject. Фефелова Диана Викторовна 241-361" textAlignment="CENTER" textFill="#9e9e9e">
                <font>
                    <Font size="11.0" />
                </font>

@@ -14,6 +14,7 @@ import java.sql.SQLException;
 
 public class ControllerLogin {
 
+    @FXML public Button registerButton;
     @FXML private TextField loginField;
     @FXML private PasswordField passwordField;
     @FXML private Button loginButton;
@@ -40,12 +41,21 @@ public class ControllerLogin {
 
 
     private void setupLoginButtonHandler() {
-        loginButton.setOnAction(event -> {
+        loginButton.setOnAction(_ -> {
             if (!loginButton.isDisabled()) {
                 handleLogin();
             }
         });
+
+        registerButton.setOnAction(_ -> openRegisterWindow());
+
+
     }
+
+    private void openRegisterWindow() {
+        Login.doAuthorisation();
+    }
+
     private void updateLoginButtonState() {
         boolean fieldsEmpty = loginField.getText().isEmpty() ||
                 passwordField.getText().isEmpty();
@@ -73,29 +83,12 @@ public class ControllerLogin {
     }
 
     private void openManagerWindow() {
-        try {
-            Stage managerStage = new Stage();
-            MetricsTable table = new MetricsTable(login.getUser());
-            SceneMainManager managerScene;
-            managerScene = new SceneMainManager(table);
-            managerScene.start(managerStage);
-        } catch (Exception e) {
-            showError("Ошибка открытия панели менеджера: " + e.getMessage());
-        }
+        login.loginOverManager();
     }
 
     private void openAnalystWindow() {
-        try {
-            Stage analystStage = new Stage();
-            MetricsTable table = new MetricsTable(login.getUser());
-            SceneMainAnalyst analystScene;
-            analystScene = new SceneMainAnalyst(table);
-            analystScene.start(analystStage);
-        } catch (Exception e) {
-            showError("Ошибка открытия панели аналитика: " + e.getMessage());
-        }
+        login.loginOverAnalyst();
     }
-
 
     private void showError(String message) {
         new Alert(Alert.AlertType.ERROR, message).showAndWait();

@@ -21,13 +21,7 @@ public class SceneLogin extends Application {
         stage.setResizable(false);
         stage.show();
 
-        try{User newUser = new User("testUser2", "qwerty123", 1, User.MANAGER);
-        UserDAO.saveUser(newUser);
-            newUser.setUsername("ahaha");
-            UserDAO.update(newUser);
-        } catch (Exception e) {
-            System.out.println("говно идея" + e.getMessage());
-        }
-
     }
+
+
 }

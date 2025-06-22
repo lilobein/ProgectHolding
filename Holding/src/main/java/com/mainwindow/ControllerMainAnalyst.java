@@ -17,7 +17,6 @@ public class ControllerMainAnalyst {
     }
 
     private void setupButtonActions() {
-
         exitButton.setOnAction(_ -> exitApp());
     }
 

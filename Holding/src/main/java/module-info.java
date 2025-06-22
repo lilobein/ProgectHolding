@@ -5,6 +5,7 @@ module com.login {
 
     opens com.login to javafx.fxml, javafx.base;
     opens com.mainwindow to javafx.fxml, javafx.base;
+    opens com.authorisation to javafx.fxml, javafx.base;
     
     exports com.login;
 }

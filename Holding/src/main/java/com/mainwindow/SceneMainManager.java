@@ -15,7 +15,6 @@ import java.time.LocalDate;
 public class SceneMainManager extends Application {
     private TableView<Metric> metricsTable;
     private final MetricsTable model;
-    private ControllerMainManager controller;
 
     private TextField nameField;
     private TextField valueField;
@@ -35,7 +34,7 @@ public class SceneMainManager extends Application {
             Parent root = loader.load();
             metricsTable = (TableView<Metric>) root.lookup("#metricsTable");
             metricsTable.setItems(model.getTableData());
-            controller = loader.getController();
+            ControllerMainManager controller = loader.getController();
             controller.setMainManager(this);
             stage.setScene(new Scene(root));
             stage.setTitle("Панель менеджера");
