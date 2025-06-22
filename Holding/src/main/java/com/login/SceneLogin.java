@@ -11,18 +11,16 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 public class SceneLogin extends Application {
-    private static final int WIDTH = 850;
-    private static final int HEIGHT = 650;
     private static final String TITLE = "Авторизация";
 
     @Override
-    public void start(Stage stage) throws IOException, SQLException {
+    public void start(Stage stage) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/login/login.fxml"));
         Parent root = loader.load();
         stage.setTitle(TITLE);
         ControllerLogin controller = loader.getController();
         controller.setView(this);
-        stage.setScene(new Scene(root, WIDTH, HEIGHT));
+        stage.setScene(new Scene(root));
         stage.setResizable(false);
         stage.show();
     }

@@ -65,19 +65,20 @@ public class User {
     }
 
     public static boolean newLogin(String username) {
-        try {
-            QueryResultWrapper wrapper = UserDAO.findByLogin(username);
-            return QueryResultWrapper.getInstance() != null;
-        } catch (SQLException e) {
-            e.printStackTrace();
+        if (username == null || username.trim().isEmpty()) {
             return false;
         }
-    }
 
+        try {
+            QueryResultWrapper wrapper = UserDAO.findByLogin(username);
+            return wrapper != null && wrapper.unwrap() == null;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false; // или пробросить исключение
+        }
+    }
     public void setUsername(String username){
-        if (newLogin(username)){
-            this.username = username;
-        } else {throw new IllegalArgumentException();}
+        this.username = username;
     }
 
     public void setId(int id){this.id = id;}

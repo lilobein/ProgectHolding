@@ -15,7 +15,7 @@ public class ControllerAuthorisation {
     @FXML private TextField usernameField;
     @FXML private PasswordField passwordField;
     @FXML private TextField enterpriseIdField;
-    @FXML private ComboBox<String> accessLevelComboBox;
+    @FXML private ComboBox<Integer> accessLevelComboBox;
 
     private User user;
     private SceneAuthorisation view;
@@ -27,7 +27,7 @@ public class ControllerAuthorisation {
 
     @FXML
     private void initialize() {
-        accessLevelComboBox.getItems().addAll("Менеджер", "Аналитик");
+        accessLevelComboBox.getItems().addAll(1, 2);
         setupButtonActions();
         this.user = new User();
     }
@@ -47,25 +47,29 @@ public class ControllerAuthorisation {
         try {
             validateInput();
             int accessLevel = accessLevelComboBox.getSelectionModel().getSelectedIndex() + 1;
-            try{user.setUsername(usernameField.getText().trim());
-            } catch (Exception e){
-                view.showErrorDialog("Ошибка логина", "Пользователь с таким логином уже существует");
+            if (!User.newLogin(usernameField.getText().trim())) {
+                view.showErrorDialog("Ошибка сохранения логина", "Пользователь с таким логином уже существует");
                 return;
             }
-            try{user.setEnterpriseId(Integer.parseInt(enterpriseIdField.getText().trim()));
+            user.setUsername(usernameField.getText().trim());
+            try {
+                user.setEnterpriseId(Integer.parseInt(enterpriseIdField.getText().trim()));
             } catch (Exception e){
                 view.showErrorDialog("Ошибка ID предприятия", "Такого предприятия не существует. Обратитесь к руководству или попробуйте еще раз.");
                 return;
             }
             user.setPassword(passwordField.getText().trim());
+
             user.setEnterpriseId(Integer.parseInt(enterpriseIdField.getText().trim()));
+
             user.setAccessLevel(accessLevel);
             UserDAO.saveUser(user);
+
             view.showConfirmation("Пользователь зарегистрирован!");
         } catch (NumberFormatException e) {
             view.showErrorDialog("Ошибка ввода", "ID предприятия должно быть числом");
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            view.showErrorDialog("Ошибка в данных", e.getMessage());
         }
     }
 

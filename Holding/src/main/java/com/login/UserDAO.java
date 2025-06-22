@@ -49,16 +49,16 @@ public class UserDAO {
         QueryResultWrapper wrapper = QueryResultWrapper.getInstance();
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(query)) {
-            stmt.setString(1, username);  // Исправлено: ищем по username, а не userId
+            stmt.setString(1, username);
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
                     User user = new User(
                             rs.getString("username"),
                             rs.getString("password"),
-                            rs.getInt("enterprise_id"),  // Исправлено: getInt вместо getObject
+                            rs.getInt("enterprise_id"),
                             rs.getInt("access_level")
                     );
-                    user.setId(rs.getInt("id"));  // Исправлено: должно быть id, а не username
+                    user.setId(rs.getInt("id"));
                     wrapper.wrap(user);
                 } else {
                     wrapper.wrap(null);
