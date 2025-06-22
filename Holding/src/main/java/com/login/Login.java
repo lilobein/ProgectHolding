@@ -1,11 +1,11 @@
 package com.login;
+
 import com.authorisation.SceneAuthorisation;
 import com.data.QueryResultWrapper;
 import com.mainwindow.MetricsTable;
 import com.mainwindow.SceneMainAnalyst;
 import com.mainwindow.SceneMainManager;
 import javafx.stage.Stage;
-
 import java.sql.SQLException;
 
 

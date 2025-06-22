@@ -4,7 +4,6 @@ import com.login.User;
 import com.login.UserDAO;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 
 import java.sql.SQLException;
@@ -15,7 +14,7 @@ public class ControllerAuthorisation {
     @FXML private TextField usernameField;
     @FXML private PasswordField passwordField;
     @FXML private TextField enterpriseIdField;
-    @FXML private ComboBox<String> accessLevelComboBox;
+    @FXML private ComboBox<Integer> accessLevelComboBox;
 
     private User user;
     private SceneAuthorisation view;
@@ -26,10 +25,10 @@ public class ControllerAuthorisation {
     }
 
     @FXML
-    private void initialize() throws SQLException {
-        accessLevelComboBox.getItems().addAll("1", "2");
+    private void initialize() {
+        accessLevelComboBox.getItems().addAll(1, 2);
         setupButtonActions();
-        this.user = new User("s", "s", 1, 2);
+        this.user = new User();
     }
 
     private void setupButtonActions() {
@@ -42,21 +41,39 @@ public class ControllerAuthorisation {
         stage.close();
     }
 
+
     public void getNewUser() throws IllegalArgumentException {
         try {
             validateInput();
             int accessLevel = accessLevelComboBox.getSelectionModel().getSelectedIndex() + 1;
+
+            if (!User.newLogin(usernameField.getText().trim())) {
+                view.showErrorDialog("Ошибка сохранения логина", "Пользователь с таким логином уже существует");
+                return;
+            }
+
             user.setUsername(usernameField.getText().trim());
+
+            try {
+                user.setEnterpriseId(Integer.parseInt(enterpriseIdField.getText().trim()));
+            } catch (Exception e){
+                view.showErrorDialog("Ошибка ID предприятия", "Такого предприятия не существует. Обратитесь к руководству или попробуйте еще раз.");
+                return;
+            }
+
             user.setPassword(passwordField.getText().trim());
+
             user.setEnterpriseId(Integer.parseInt(enterpriseIdField.getText().trim()));
+
             user.setAccessLevel(accessLevel);
             UserDAO.saveUser(user);
-        } catch (SQLException e) {
-            showErrorDialog("Ошибка базы данных", e.getMessage());
-            throw new IllegalArgumentException("Database error", e);
+
+            view.userCelebration(user);
+
         } catch (NumberFormatException e) {
-            showErrorDialog("Ошибка ввода", "ID предприятия должно быть числом");
-            throw new IllegalArgumentException("Invalid enterprise ID", e);
+            view.showErrorDialog("Ошибка ввода", "ID предприятия должно быть числом");
+        } catch (SQLException e) {
+            view.showErrorDialog("Ошибка в данных", e.getMessage());
         }
     }
 
@@ -64,17 +81,10 @@ public class ControllerAuthorisation {
         if (usernameField.getText().trim().isEmpty() ||
                 passwordField.getText().trim().isEmpty() ||
                 enterpriseIdField.getText().trim().isEmpty()) {
-            showErrorDialog("Ошибка ввода", "Все поля должны быть заполнены");
-            throw new IllegalArgumentException("All fields must be filled");
+            view.showErrorDialog("Ошибка ввода", "Все поля должны быть заполнены");
         }
     }
 
-    private void showErrorDialog(String title, String message) {
-        Alert alert = new Alert(AlertType.ERROR);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.showAndWait();
-    }
+
 
 }

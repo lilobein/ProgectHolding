@@ -109,12 +109,14 @@ public class SceneMainManager extends Application {
     }
 
 
-
     public TableView<Metric> getMetricsTable(){return metricsTable;}
+
     public MetricsTable getModel(){return model;}
+
     public void refreshTable() {
         model.refreshData();
     }
+
     public String getMetricName() {
         return nameField.getText();
     }
@@ -137,6 +139,16 @@ public class SceneMainManager extends Application {
 
     public LocalDate getEndDateValue() {
         return endDate.getValue();
+    }
+
+    protected boolean showConfirmation(String message) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setContentText(message);
+        return alert.showAndWait().get() == ButtonType.OK;
+    }
+
+    protected void showError(String message) {
+        new Alert(Alert.AlertType.ERROR, message).showAndWait();
     }
 
 }

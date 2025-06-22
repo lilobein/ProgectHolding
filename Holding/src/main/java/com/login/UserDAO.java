@@ -20,7 +20,6 @@ public class UserDAO {
             stmt.setInt(3, user.getEnterpriseId());
             stmt.setInt(4, user.getAccessLevel());
             stmt.executeUpdate();
-
             try (ResultSet rs = stmt.getGeneratedKeys()) {
                 if (rs.next()) {
                     user.setId(rs.getInt(1));
@@ -44,18 +43,18 @@ public class UserDAO {
         }
     }
 
-    public static QueryResultWrapper findById(int userId) throws SQLException {
-        String query = "SELECT * FROM users WHERE id=?";
+    public static QueryResultWrapper findByLogin(String username) throws SQLException {
+        String query = "SELECT * FROM users WHERE username = ?";
         QueryResultWrapper wrapper = QueryResultWrapper.getInstance();
         try (Connection conn = DatabaseConnection.getConnection();
-            PreparedStatement stmt = conn.prepareStatement(query)) {
-            stmt.setInt(1, userId);
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setString(1, username);
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
                     User user = new User(
                             rs.getString("username"),
                             rs.getString("password"),
-                            rs.getObject("enterprise_id", Integer.class),
+                            rs.getInt("enterprise_id"),
                             rs.getInt("access_level")
                     );
                     user.setId(rs.getInt("id"));
@@ -64,9 +63,6 @@ public class UserDAO {
                     wrapper.wrap(null);
                 }
             }
-        } catch (SQLException e) {
-            wrapper.wrap(null);
-            throw e;
         }
         return wrapper;
     }

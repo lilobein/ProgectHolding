@@ -1,15 +1,11 @@
 package com.authorisation;
 
 import com.login.User;
-import com.mainwindow.ControllerMainManager;
-import com.mainwindow.Metric;
-import com.mainwindow.SceneMainAnalyst;
-import com.mainwindow.SceneMainManager;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.TableView;
+import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 
 public class SceneAuthorisation extends Application {
@@ -34,5 +30,25 @@ public class SceneAuthorisation extends Application {
             System.out.println("Ошибка запуска" + e.getMessage());
             e.printStackTrace();
         }
+    }
+
+    protected void showConfirmation(String message) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setContentText(message);
+        alert.showAndWait().get();
+    }
+
+    protected void userCelebration(User user){
+        this.user = user;
+        showConfirmation("Пользователь " + this.user.getUsername() + " успешно сохранен! Войдите с своими данными");
+
+    }
+
+    protected void showErrorDialog(String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 }

@@ -1,10 +1,7 @@
 package com.login;
 
-import com.mainwindow.MetricsTable;
-import com.mainwindow.SceneMainAnalyst;
-import com.mainwindow.SceneMainManager;
+
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -18,25 +15,28 @@ public class ControllerLogin {
     @FXML private TextField loginField;
     @FXML private PasswordField passwordField;
     @FXML private Button loginButton;
+
     private Login login;
+    private SceneLogin view;
+
 
 
     @FXML
     private void initialize() {
         setupButtonStateHandler();
         setupLoginButtonHandler();
+    }
 
+
+    public void setView(SceneLogin view){
+        this.view = view;
     }
 
 
     private void setupButtonStateHandler() {
         loginButton.setDisable(true);
-        loginField.textProperty().addListener((obs, oldVal, newVal) ->
-                updateLoginButtonState()
-        );
-        passwordField.textProperty().addListener((obs, oldVal, newVal) ->
-                updateLoginButtonState()
-        );
+        loginField.textProperty().addListener(_ -> updateLoginButtonState());
+        passwordField.textProperty().addListener(_ -> updateLoginButtonState());
     }
 
 
@@ -46,10 +46,7 @@ public class ControllerLogin {
                 handleLogin();
             }
         });
-
         registerButton.setOnAction(_ -> openRegisterWindow());
-
-
     }
 
     private void openRegisterWindow() {
@@ -75,10 +72,10 @@ public class ControllerLogin {
                     openAnalystWindow();
                 }
             } else {
-                showError("Неверный логин или пароль!");
+                view.showError("Неверный логин или пароль!", "Попробуйте еще раз");
             }
         } catch (SQLException e) {
-            showError("Ошибка базы данных: " + e.getMessage());
+            view.showError("Ошибка базы данных: " , e.getMessage());
         }
     }
 
@@ -90,8 +87,6 @@ public class ControllerLogin {
         login.loginOverAnalyst();
     }
 
-    private void showError(String message) {
-        new Alert(Alert.AlertType.ERROR, message).showAndWait();
-    }
+
 
 }

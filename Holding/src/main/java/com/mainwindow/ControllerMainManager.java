@@ -41,16 +41,16 @@ public class ControllerMainManager {
     private void handleDelete() {
         Metric selected = view.getMetricsTable().getSelectionModel().getSelectedItem();
         if (selected == null) {
-            showError("Выберите показатель для удаления");
+            view.showError("Выберите показатель для удаления");
             return;
         }
-        if (showConfirmation("Удалить выбранный показатель?")) {
+        if (view.showConfirmation("Удалить выбранный показатель?")) {
             try {
                 model.delete(selected);
                 view.refreshTable();
                 view.getMetricsTable().getItems().remove(selected);
             } catch (SQLException e) {
-                showError("Ошибка удаления: " + e.getMessage());
+                view.showError("Ошибка удаления: " + e.getMessage());
             }
         }
     }
@@ -66,11 +66,11 @@ public class ControllerMainManager {
                         view.getImportanceConstantValue(), view.getCurrencyId(),
                         view.getStartDateValue(), view.getEndDateValue());
                 view.refreshTable();
-                showConfirmation("Показатель создан.");
+                view.showConfirmation("Показатель создан.");
             } catch (Exception e){
-                showError("Введены некорректные данные");
+                view.showError("Введены некорректные данные");
                 System.out.println(e.getMessage());
-                showConfirmation("Подсказка: вес важности метрики находится от 1 до 5, максимальный ID валюты - 3, минимальный - 1");
+                view.showConfirmation("Подсказка: вес важности метрики находится от 1 до 5, максимальный ID валюты - 3, минимальный - 1");
 
             }
         }
@@ -81,12 +81,11 @@ public class ControllerMainManager {
     private void handleEdit() {
         Metric metricToEdit = view.getMetricsTable().getSelectionModel().getSelectedItem();
         if (metricToEdit == null) {
-            showError("Показатель не выбран");
+            view.showError("Показатель не выбран");
             return;
         }
         try {
             Dialog<ButtonType>  dialog = view.doEditDialog(metricToEdit);
-
             dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
             if (dialog.showAndWait().orElse(ButtonType.CANCEL) == ButtonType.OK) {
             try {
@@ -94,12 +93,11 @@ public class ControllerMainManager {
                         view.getImportanceConstantValue(), view.getCurrencyId(),
                         view.getStartDateValue(), view.getEndDateValue());
             } catch (Exception e) {
-                System.out.println("Проверьте правильность данных");
+                view.showConfirmation("Проверьте правильность данных");
             }
         }
-
         } catch (Exception e){
-            System.out.println("фатальная " + e.getMessage());
+            view.showError("Ошибка в данных!");
         }
 
     }
@@ -109,13 +107,4 @@ public class ControllerMainManager {
     }
 
 
-    private boolean showConfirmation(String message) {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setContentText(message);
-        return alert.showAndWait().get() == ButtonType.OK;
-    }
-
-    private void showError(String message) {
-        new Alert(Alert.AlertType.ERROR, message).showAndWait();
-    }
 }

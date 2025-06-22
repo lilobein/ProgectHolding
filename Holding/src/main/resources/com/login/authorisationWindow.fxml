@@ -16,12 +16,9 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="850.0" style="-fx-background-color: #f5f5f5;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.authorisation.ControllerAuthorisation">
-
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="850.0" style="-fx-background-color: #f5f5f5;" xmlns="http://javafx.com/javafx/22.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.authorisation.ControllerAuthorisation">
     <children>
-        <!-- Верхняя панель с логотипом -->
         <Rectangle arcHeight="0.0" arcWidth="0.0" fill="#d32f2f" height="80.0" layoutX="0.0" layoutY="0.0" width="850.0" />
-
         <Label layoutX="27.0" layoutY="3.0" text="HoldingProject" textFill="WHITE">
             <font>
                 <Font name="System Bold" size="32.0" />
@@ -30,26 +27,18 @@
                 <DropShadow color="#b71c1c" radius="5.0" spread="0.3" />
             </effect>
         </Label>
-
         <Label layoutX="27.0" layoutY="50.0" text="Корпоративное решение" textFill="#ffcdd2">
             <font>
                 <Font size="14.0" />
             </font>
         </Label>
-
-        <!-- Основная форма -->
         <Rectangle arcHeight="20.0" arcWidth="20.0" fill="#ffffff" height="509.0" layoutX="224.0" layoutY="106.0" stroke="#e0e0e0" strokeType="INSIDE" strokeWidth="1.0" width="402.0">
             <effect>
                 <DropShadow color="#33000000" radius="15.0" spread="0.1" />
             </effect>
         </Rectangle>
-
-        <!-- Декоративные элементы -->
         <Line endX="400.0" fill="TRANSPARENT" layoutX="225.0" layoutY="169.0" startX="0.0" stroke="#d32f2f" strokeWidth="2.0" />
-
         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#d32f2f" height="2.0" layoutX="225.0" layoutY="149.0" width="100.0" />
-
-        <!-- Заголовок формы -->
         <Label alignment="CENTER" layoutX="225.0" layoutY="111.0" prefHeight="40.0" prefWidth="400.0" text="РЕГИСТРАЦИЯ ПОЛЬЗОВАТЕЛЯ" textAlignment="CENTER">
             <font>
                 <Font name="System Bold" size="24.0" />
@@ -63,8 +52,6 @@
                 </LinearGradient>
             </textFill>
         </Label>
-
-        <!-- Поля ввода -->
         <Label layoutX="245.0" layoutY="180.0" style="-fx-text-fill: #757575;" text="Логин">
             <font>
                 <Font size="13.0" />
@@ -118,7 +105,6 @@
             </effect>
         </ComboBox>
 
-        <!-- Кнопка регистрации -->
         <Button fx:id="registerButton" layoutX="245.0" layoutY="490.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="360.0" style="-fx-background-color: linear-gradient(to right, #d32f2f, #b71c1c); -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 3; -fx-font-size: 16;" text="ЗАРЕГИСТРИРОВАТЬ">
             <cursor>
                 <Cursor fx:constant="HAND" />
@@ -127,8 +113,6 @@
                 <DropShadow color="#5d0000" height="5.0" radius="3.0" spread="0.2" width="5.0" />
             </effect>
         </Button>
-
-        <!-- Футер -->
         <Label alignment="CENTER" layoutX="0.0" layoutY="600.0" prefHeight="50.0" prefWidth="850.0" text="© 2025 HoldingProject. Фефелова Диана Викторовна 241-361" textAlignment="CENTER" textFill="#9e9e9e">
             <font>
                 <Font size="11.0" />

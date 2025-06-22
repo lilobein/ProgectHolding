@@ -34,7 +34,6 @@ public class SceneMainAnalyst extends Application {
         }
     }
 
-
     public MetricsTable getModel() {
         return model;
     }
