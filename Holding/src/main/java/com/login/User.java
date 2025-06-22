@@ -73,7 +73,6 @@ public class User {
             QueryResultWrapper wrapper = UserDAO.findByLogin(username);
             return wrapper != null && wrapper.unwrap() == null;
         } catch (SQLException e) {
-            e.printStackTrace();
             return false;
         }
     }

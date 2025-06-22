@@ -20,7 +20,6 @@ public class UserDAO {
             stmt.setInt(3, user.getEnterpriseId());
             stmt.setInt(4, user.getAccessLevel());
             stmt.executeUpdate();
-
             try (ResultSet rs = stmt.getGeneratedKeys()) {
                 if (rs.next()) {
                     user.setId(rs.getInt(1));

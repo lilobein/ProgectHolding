@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
 
+import com.data.QueryResultWrapper;
 import com.login.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -36,13 +37,14 @@ public class MetricsTable {
     public void refreshData() {
         try {
             if (user.isManager()){
-                List<Metric> metrics = MetricDAO.findByEnterpriseId(user.getEnterpriseId());
+                QueryResultWrapper wrapper = MetricDAO.findByEnterpriseId(user.getEnterpriseId());
+                List<Metric> metrics = (List<Metric>) wrapper.unwrap();
                 tableData.setAll(metrics);
             } else if (user.isAnalyst()){
-                List<Metric> metrics = MetricDAO.findAll();
+                QueryResultWrapper wrapper = MetricDAO.findAll();
+                List<Metric> metrics = (List<Metric>) wrapper.unwrap();
                 tableData.setAll(metrics);
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
         }

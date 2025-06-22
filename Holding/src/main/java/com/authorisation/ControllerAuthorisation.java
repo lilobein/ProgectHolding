@@ -82,7 +82,6 @@ public class ControllerAuthorisation {
                 passwordField.getText().trim().isEmpty() ||
                 enterpriseIdField.getText().trim().isEmpty()) {
             view.showErrorDialog("Ошибка ввода", "Все поля должны быть заполнены");
-            throw new IllegalArgumentException("All fields must be filled");
         }
     }
 
