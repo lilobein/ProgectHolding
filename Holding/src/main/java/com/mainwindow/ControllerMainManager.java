@@ -44,7 +44,7 @@ public class ControllerMainManager {
             showError("Выберите показатель для удаления");
             return;
         }
-        if (showConfirmation("Удалить выбранный показатель?")) {
+        if (view.showConfirmation("Удалить выбранный показатель?")) {
             try {
                 model.delete(selected);
                 view.refreshTable();
@@ -66,11 +66,11 @@ public class ControllerMainManager {
                         view.getImportanceConstantValue(), view.getCurrencyId(),
                         view.getStartDateValue(), view.getEndDateValue());
                 view.refreshTable();
-                showConfirmation("Показатель создан.");
+                view.showConfirmation("Показатель создан.");
             } catch (Exception e){
                 showError("Введены некорректные данные");
                 System.out.println(e.getMessage());
-                showConfirmation("Подсказка: вес важности метрики находится от 1 до 5, максимальный ID валюты - 3, минимальный - 1");
+                view.showConfirmation("Подсказка: вес важности метрики находится от 1 до 5, максимальный ID валюты - 3, минимальный - 1");
 
             }
         }
@@ -109,11 +109,6 @@ public class ControllerMainManager {
     }
 
 
-    private boolean showConfirmation(String message) {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setContentText(message);
-        return alert.showAndWait().get() == ButtonType.OK;
-    }
 
     private void showError(String message) {
         new Alert(Alert.AlertType.ERROR, message).showAndWait();

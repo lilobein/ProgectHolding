@@ -4,7 +4,7 @@ public class QueryResultWrapper {
     private static QueryResultWrapper instance;
     private Object data;
 
-    private QueryResultWrapper() {}  // Приватный конструктор
+    private QueryResultWrapper() {}
 
     public static synchronized QueryResultWrapper getInstance() {
         if (instance == null) {

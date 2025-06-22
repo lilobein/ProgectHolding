@@ -139,6 +139,12 @@ public class SceneMainManager extends Application {
         return endDate.getValue();
     }
 
+    protected boolean showConfirmation(String message) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setContentText(message);
+        return alert.showAndWait().get() == ButtonType.OK;
+    }
+
 }
 
 

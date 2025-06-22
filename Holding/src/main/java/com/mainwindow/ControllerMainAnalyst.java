@@ -29,19 +29,8 @@ public class ControllerMainAnalyst {
         setModel(view.getModel());
     }
 
-
-    private boolean showConfirmation(String message) {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setContentText(message);
-        return alert.showAndWait().get() == ButtonType.OK;
-    }
-
     private void exitApp() {
         Platform.exit();
     }
 
-
-    private void showError(String message) {
-        new Alert(Alert.AlertType.ERROR, message).showAndWait();
-    }
 }

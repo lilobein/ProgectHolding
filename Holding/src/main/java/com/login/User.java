@@ -1,5 +1,7 @@
 package com.login;
 
+import com.data.QueryResultWrapper;
+
 import java.sql.SQLException;
 
 public class User {
@@ -20,6 +22,8 @@ public class User {
         this.accessLevel = accessLevel;
     }
 
+    public User(){}
+
     public int getId() {
         return id;
     }
@@ -37,6 +41,9 @@ public class User {
     }
 
     public void setEnterpriseId(int i) {
+        if (i < 1 || i > 5){
+            throw new IllegalArgumentException();
+        }
         this.enterpriseId = i;
     }
 
@@ -57,8 +64,20 @@ public class User {
         }
     }
 
+    public static boolean newLogin(String username) {
+        try {
+            QueryResultWrapper wrapper = UserDAO.findByLogin(username);
+            return QueryResultWrapper.getInstance() != null;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
     public void setUsername(String username){
-        this.username = username;
+        if (newLogin(username)){
+            this.username = username;
+        } else {throw new IllegalArgumentException();}
     }
 
     public void setId(int id){this.id = id;}
@@ -67,11 +86,10 @@ public class User {
         this.password = password;
     }
 
-
-
     public boolean isManager() {
         return accessLevel == MANAGER;
     }
+
     public boolean isAnalyst() {
         return accessLevel == ANALYST;
     }
